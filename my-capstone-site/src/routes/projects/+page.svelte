@@ -1,66 +1,58 @@
+<svelte:head>
+  <title>Projects | Qianxi Liu</title>
+</svelte:head>
+
 <script lang="ts">
   const projects = [
     {
       title: 'Ghost Marriage',
       href: '/projects/ghost-marriage',
-      summary: 'An interactive narrative and animation project based on Chinese ghost marriage culture.',
-      image: '/images/ghost-marriage.png'
+      subtitle: 'Interactive Narrative / Animation / Cultural Critique'
     },
     {
       title: 'AI Museum of Chinese Artifacts',
       href: '/projects/ai-museum',
-      summary: 'A digital humanities and AI project exploring generated Chinese artifacts and museum narratives.',
-      image: '/images/ai-museum.png'
+      subtitle: 'Digital Humanities / AI / Archive / Speculative Heritage'
     },
     {
       title: 'TicSports',
       href: '/projects/ticsports',
-      summary: 'An AI-supported sports and treadmill experience focused on tracking, coaching, and interface design.',
-      image: '/images/ticsports.jpg'
+      subtitle: 'Interaction Design / Mobile design / UI/UX'
     },
     {
-      title: 'Capstone Portfolio Site',
-      href: '/projects/capstone-site',
-      summary: 'A personal academic portfolio built with SvelteKit, Tailwind, and TypeScript.',
-      image: '/images/capstone-site.jpg'
+      title: 'TicNote',
+      href: '/projects/ticnote',
+      subtitle: 'interactive design / UI/UX / Web development'
     }
   ];
 </script>
 
-<svelte:head>
-  <title>Projects</title>
-</svelte:head>
-
-<section class="space-y-8">
-  <div>
-    <p class="text-sm text-gray-500">Work</p>
-    <h1 class="mt-2 text-4xl font-bold">Selected Projects</h1>
-    <p class="mt-4 max-w-2xl text-gray-600">
-      A selection of projects across interactive storytelling, digital humanities,
-      interface design, and creative technology.
-    </p>
+<section class="mx-auto max-w-5xl px-6 py-16 text-white">
+  <div class="mb-12">
+    <h1 class="text-4xl font-light uppercase tracking-[0.2em]">
+      Projects
+    </h1>
   </div>
 
-  <div class="grid gap-6 md:grid-cols-2">
+  <div class="flex flex-col gap-6">
     {#each projects as project}
       <a
         href={project.href}
-        class="block overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-md"
+        class="group block border border-white/70 px-8 py-8 transition duration-300 hover:border-white"
       >
-        <div class="h-56 w-full bg-pink-50">
-          <img
-            src={project.image}
-            alt={project.title}
-            class="h-full w-full object-cover"
-          />
-        </div>
+        <div class="flex items-center justify-between gap-6">
+          <div>
+            <h2 class="text-2xl font-light tracking-wide">
+              {project.title}
+            </h2>
+            <p class="mt-3 text-sm font-light tracking-wide text-white/80">
+              {project.subtitle}
+            </p>
+          </div>
 
-        <div class="p-5">
-          <h2 class="text-xl font-semibold">{project.title}</h2>
-          <p class="mt-3 text-sm leading-6 text-gray-600">
-            {project.summary}
-          </p>
-          <p class="mt-4 text-sm font-medium">View Project →</p>
+          <div class="shrink-0 text-xl font-light tracking-widest transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </div>
         </div>
       </a>
     {/each}

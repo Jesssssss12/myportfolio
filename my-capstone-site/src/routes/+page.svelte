@@ -1,37 +1,53 @@
 <script lang="ts">
-  let showMore = $state(false);
+  let current = $state(0);
+
+  const images = [
+    "/images/ai-museum.png",
+    "/images/ghost-marriage.png",
+    "/images/ticsports.png",
+    "/images/ticnote.png"
+  ];
+
+  setInterval(() => {
+    current = (current + 1) % images.length;
+  }, 3000);
 </script>
 
 <svelte:head>
   <title>Home | My Capstone Site</title>
 </svelte:head>
 
-<section class="mx-auto max-w-6xl px-6 py-16">
-  <div class="grid gap-10 md:grid-cols-2 md:items-center">
-    <div>
-      <p class="text-sm font-medium text-muted-foreground">Academic Profile</p>
-      <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
-        Hi, I'm Qianxi Liu
-      </h1>
-      <p class="mt-5 text-lg leading-8 text-muted-foreground">
-        I am a digital media and humanities student interested in interactive storytelling,
-        interface design, and AI-supported creative practice.
-      </p>
+<section class="relative flex min-h-[80vh] items-center justify-center text-center text-white">
 
-    
+  <!-- background images -->
+  {#each images as img, index}
+    <div
+      class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+      style="background-image: url('{img}')"
+      class:opacity-100={index === current}
+      class:opacity-0={index !== current}
+    ></div>
+  {/each}
 
-      <div class="mt-8">
-      
-        {#if showMore}
-          <div class="mt-4 rounded-xl border bg-card p-4 shadow-sm">
-            <p class="text-sm text-muted-foreground">
-              This site presents my background, education, skills, and selected projects.
-              It is built with SvelteKit, TypeScript, Tailwind CSS, and shadcn-svelte.
-            </p>
-          </div>
-        {/if}
-      </div>
-    </div>
+  <!-- overlay -->
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <!-- text content -->
+  <div class="relative z-10 max-w-3xl px-6">
+
+    <p class="text-sm uppercase tracking-widest text-gray-300">
+      Academic Profile
+    </p>
+
+    <h1 class="mt-4 text-5xl font-bold">
+      Hi, I'm Qianxi Liu
+    </h1>
+
+    <p class="mt-6 text-lg text-gray-200">
+      I am a digital media and humanities student interested in interactive
+      storytelling, interface design, and AI-supported creative practice.
+    </p>
 
   </div>
+
 </section>
