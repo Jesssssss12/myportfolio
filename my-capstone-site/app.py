@@ -1,10 +1,16 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+from pathlib import Path
 
 st.title("Met Chinese Art Dashboard")
 
-df = pd.read_csv("static/data/Met-database-csv.csv")
+csv_path = Path(__file__).resolve().parent / "static" / "data" / "Met-database-csv.csv"
+if not csv_path.exists():
+    st.error(f"Data file not found: {csv_path}")
+    st.stop()
+
+df = pd.read_csv(csv_path)
 
 df["year"] = pd.to_numeric(df["year"], errors="coerce")
 df["Classification"] = df["Classification"].fillna("Unknown")
