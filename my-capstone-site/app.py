@@ -6,18 +6,21 @@ from pathlib import Path
 st.title("Met Chinese Art Dashboard")
 
 csv_path = Path(__file__).resolve().parent / "static" / "data" / "Met-database-csv.csv"
+
 if not csv_path.exists():
     st.error(f"Data file not found: {csv_path}")
     st.stop()
 
 df = pd.read_csv(csv_path)
 
+# Basic cleaning
 df["year"] = pd.to_numeric(df["year"], errors="coerce")
 df["Classification"] = df["Classification"].fillna("Unknown")
 df["Object Name"] = df["Object Name"].fillna("Unknown Object")
 df["Artist Display Name"] = df["Artist Display Name"].fillna("Unidentified artist")
 df["Dynasty"] = df["Dynasty"].fillna("Unknown")
 
+# Keep valid years only
 df = df.dropna(subset=["year"])
 df = df[(df["year"] >= 0) & (df["year"] <= 2025)]
 
@@ -45,7 +48,7 @@ fig.update_traces(
     "Dynasty: %{customdata[2]}<extra></extra>"
 )
 
-# 默认全部隐藏；勾选 Show all data 后全部显示
+# Default: hide all data. Check "Show all data" to display everything.
 if not show_all:
     for trace in fig.data:
         trace.visible = "legendonly"
@@ -54,21 +57,21 @@ fig.update_layout(
     xaxis_title="Year",
     yaxis_title="Object Classification",
     height=800,
-    legend_title="Click to Show Classification"
-)
-
-fig.update_xaxes(
-    rangeslider=dict(visible=True),
-    rangeselector=dict(
-        buttons=[
-            dict(count=200, label="200y", step="year", stepmode="backward"),
-            dict(count=500, label="500y", step="year", stepmode="backward"),
-            dict(count=1000, label="1000y", step="year", stepmode="backward"),
-            dict(step="all", label="All")
-        ]
-    ),
-    tickformat="d",
-    exponentformat="none"
+    legend_title="Click to Show Classification",
+    xaxis=dict(
+        range=[0, 2025],
+        tickformat="d",
+        exponentformat="none",
+        rangeslider=dict(visible=True),
+        rangeselector=dict(
+            buttons=[
+                dict(count=200, label="200y", step="year", stepmode="backward"),
+                dict(count=500, label="500y", step="year", stepmode="backward"),
+                dict(count=1000, label="1000y", step="year", stepmode="backward"),
+                dict(step="all", label="All")
+            ]
+        )
+    )
 )
 
 st.plotly_chart(fig, use_container_width=True)

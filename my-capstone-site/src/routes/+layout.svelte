@@ -11,6 +11,8 @@
       <a href="/about" class="hover:underline">About</a>
       <a href="/cv" class="hover:underline">CV</a>
       <a href="/projects" class="hover:underline">Projects</a>
+      <a href="/met-project" class="hover:underline">Met Project</a>
+
     </nav>
   </div>
 </header>
