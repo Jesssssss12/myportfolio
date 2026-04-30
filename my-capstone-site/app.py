@@ -66,7 +66,9 @@ fig.update_xaxes(
             dict(count=1000, label="1000y", step="year", stepmode="backward"),
             dict(step="all", label="All")
         ]
-    )
+    ),
+    tickformat="d",
+    exponentformat="none"
 )
 
 st.plotly_chart(fig, use_container_width=True)
